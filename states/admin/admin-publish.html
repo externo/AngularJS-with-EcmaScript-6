@@ -1,0 +1,71 @@
+<div layout="{{ Admin.device.direction }}" ng-controller="AdminController as Admin">
+  <div layout="column" flex>
+    <div layout="row" ng-hide="Admin.device.size">
+      <md-input-container flex="70">
+        <label>Част:</label>
+        <input type="text" ng-model="Admin.adData.description.name"/>
+      </md-input-container>
+      <md-input-container flex="15">
+        <label>Категория:</label>
+        <md-select ng-model="Admin.adData.description.category">
+          <!--<option value="null">(None)</option>-->
+          <md-option ng-repeat="category in Admin.categories"
+                     value="{{category.name}}">{{category.name}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex="15">
+        <label>Цена:</label>
+        <input type="text" ng-model="Admin.adData.description.price"/>
+      </md-input-container>
+    </div>
+    <div layout="row" ng-show="Admin.device.size">
+      <md-input-container flex="50">
+        <label>Категория:</label>
+        <md-select ng-model="Admin.adData.description.category">
+          <!--<option value="null">(None)</option>-->
+          <md-option ng-repeat="category in Admin.categories"
+                     value="{{category.name}}">{{category.name}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex>
+        <label>Цена:</label>
+        <input type="text" ng-model="Admin.adData.description.price"/>
+      </md-input-container>
+    </div>
+    <div layout="row" ng-show="Admin.device.size">
+      <md-input-container flex>
+        <label>Част:</label>
+        <input type="text" ng-model="Admin.adData.description.name"/>
+      </md-input-container>
+    </div>
+    <div layout="row">
+      <md-input-container flex>
+        <label>Описание:</label>
+        <textarea type="text" ng-model="Admin.adData.description.text"></textarea>
+      </md-input-container>
+    </div>
+  </div>
+  <div layout="{{ Admin.device.direction }}" flex="30">
+    <div id='upload-image' layout="column" flex>
+      <span></span>
+      <label class='md-button' md-ink-ripple for='image'>
+        <img src='../../assets/images/default-merc.jpg' ng-hide="images"/>
+        <img ng-src="{{images[0]}}"/>
+      </label>
+      <!--<input id='image' type='file' onchange="Admin.fileSelected1(this)">-->
+      <input id='image' type="file" ng-model="images" accept="image\/.*/"
+             onchange="angular.element(this).scope().Admin.imageAd(this)"
+             multiple upload-image/>
+    </div>
+    <div layout="column" layout-align="center" flex="20">
+      <md-button id="ad-button"
+                 aria-label="publish button"
+                 class="md-fab md-accent"
+                 ng-click="Admin.publishAd(Admin.adData)">
+        <md-icon md-svg-icon="../../assets/images/icons/check.svg"></md-icon>
+      </md-button>
+    </div>
+  </div>
+</div>

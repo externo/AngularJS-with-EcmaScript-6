@@ -1,0 +1,92 @@
+<!-- List AD items -->
+<md-list-item md-ripple-ink
+              class="notClicked"
+              ng-repeat="ad in Admin.ads
+                          | filter: filterSearch
+                          | filter: filterByCategory
+                          | orderBy: sortBy"
+              id="{{ad.objectId}}"
+              ng-click="Admin.getAd(ad)">
+
+  <div layout="{{ Admin.device.direction }}">
+
+    <!-- Image div -->
+    <div flex="15" ng-hide="Admin.device.size" class="image">
+      <span></span>
+      <label class='md-button' md-ink-ripple for='image1+{{ad.objectId}}'>
+        <img ng-if="ad.img1.url" ng-src="{{ad.img1.url}}" ng-hide="imgs"/>
+        <img ng-if="!ad.img1.url" ng-src="assets/images/default-merc.jpg" ng-hide="imgs"/>
+        <img ng-src="{{imgs[0]}}"/>
+      </label>
+      <input id='image1+{{ad.objectId}}' type="file" ng-model="imgs" accept="image\/.*/"
+             onchange="angular.element(this).scope().Admin.imageAd(this)"
+             multiple upload-image/>
+    </div>
+    <div flex="25" ng-show="Admin.device.size" class="image">
+      <span></span>
+      <label class='md-button' md-ink-ripple for='image1+{{ad.objectId}}'>
+        <img ng-if="ad.img1.url" ng-src="{{ad.img1.url}}" ng-hide="imgs"/>
+        <img ng-if="!ad.img1.url" ng-src="assets/images/default-merc.jpg" ng-hide="imgs"/>
+        <img ng-src="{{imgs[0]}}"/>
+      </label>
+      <input id='image1+{{ad.objectId}}' type='file' ng-model="imgs" accept="image\/.*/"
+             onchange="angular.element(this).scope().Admin.imageAd(this)"
+             multiple upload-image/>
+    </div>
+
+    <!-- Description div -->
+    <div flex
+         class="description">
+      <div flex="100" layout="row">
+        <md-input-container flex="15" ng-hide="Admin.device.size">
+          <md-select ng-model="ad.description.category" aria-label="категория">
+            <!--<option value="null">(None)</option>-->
+            <md-option ng-repeat="category in Admin.categories"
+                       value="{{category.name}}"
+                       ng-selected="category.name==ad.description.category">
+              {{category.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex="50" ng-show="Admin.device.size">
+          <md-select ng-model="ad.description.category" aria-label="категория">
+            <!--<option value="null">(None)</option>-->
+            <md-option ng-repeat="category in Admin.categories"
+                       value="{{category.name}}"
+                       ng-selected="category.name==ad.description.category">
+              {{category.name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex="75" ng-hide="Admin.device.size">
+          <input type="text" ng-model="ad.description.name" aria-label="част"/>
+        </md-input-container>
+        <md-input-container flex="10" ng-hide="Admin.device.size">
+          <input type="text" class="price" ng-model="ad.description.price" aria-label="цена"/>
+        </md-input-container>
+
+        <md-input-container flex="50" ng-show="Admin.device.size">
+          <input type="text" class="price" ng-model="ad.description.price" aria-label="цена"/>
+        </md-input-container>
+      </div>
+      <div flex="100" ng-show="Admin.device.size">
+        <md-input-container>
+          <input type="text" ng-model="ad.description.name" aria-label="част"/>
+        </md-input-container>
+      </div>
+      <div flex="100">
+        <md-input-container>
+          <textarea type="text" ng-model="ad.description.text" aria-label="описание"></textarea>
+        </md-input-container>
+      </div>
+    </div>
+
+    <!-- Buttons div -->
+    <div flex="20" class="buttons">
+      <small>промяна {{ad.updatedAt | date:'dd.MM.yyyy'}}</small>
+      <div ng-include="'states/admin/admin-ads-buttons.html'"></div>
+    </div>
+  </div>
+
+</md-list-item>

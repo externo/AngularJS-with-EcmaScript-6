@@ -1,0 +1,22 @@
+@import "_admin-ads";
+@import "_admin-ads-buttons";
+@import "_admin-publish";
+
+.blur{
+  @include blur-filter(2px);
+}
+
+.float-bottom{
+  bottom: 1%;
+}
+
+#user-name{
+  margin-top: 2%;
+  margin-right: 2%;
+  cursor: pointer;
+
+  a, p{
+    text-decoration: none;
+    color: $accent-color;
+  }
+}
